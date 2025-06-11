@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ 'Edit' if waste_type else 'Add' }} Waste Type</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>{{ 'Edit' if waste_type else 'Add' }} Waste Type</h1>
+    <form method="post">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="{{ waste_type.name if waste_type else '' }}" required>
+        </div>
+        <div>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description">{{ waste_type.description if waste_type else '' }}</textarea>
+        </div>
+        <div>
+            <label for="price_per_unit">Price per Unit:</label>
+            <input type="number" step="0.01" id="price_per_unit" name="price_per_unit" value="{{ waste_type.price_per_unit if waste_type else '' }}" required>
+        </div>
+        <button type="submit">Save</button>
+    </form>
+    <a href="{{ url_for('waste_types_html_bp.list_waste_types') }}">Back to List</a>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Waste Types</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Waste Types</h1>
+    <a href="{{ url_for('waste_types_html_bp.add_waste_type_form') }}">Add New Waste Type</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price per Unit</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for waste_type in waste_types %}
+            <tr>
+                <td>{{ waste_type.id }}</td>
+                <td>{{ waste_type.name }}</td>
+                <td>{{ waste_type.description }}</td>
+                <td>{{ waste_type.price_per_unit }}</td>
+                <td>
+                    <a href="{{ url_for('waste_types_html_bp.edit_waste_type_form', waste_type_id=waste_type.id) }}">Edit</a>
+                    <form action="{{ url_for('waste_types_html_bp.delete_waste_type_action', waste_type_id=waste_type.id) }}" method="post" style="display:inline;">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

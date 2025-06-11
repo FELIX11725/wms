@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customers</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Customers</h1>
+    <p><a href="{{ url_for('waste_types_html_bp.list_waste_types') }}">Manage Waste Types</a></p>
+    <a href="{{ url_for('customers_html_bp.add_customer_form') }}">Add New Customer</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for customer in customers %}
+            <tr>
+                <td>{{ customer.id }}</td>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.address }}</td>
+                <td>{{ customer.contact_email }}</td>
+                <td>{{ customer.contact_phone }}</td>
+                <td>
+                    <a href="{{ url_for('customers_html_bp.edit_customer_form', customer_id=customer.id) }}">Edit</a>
+                    <form action="{{ url_for('customers_html_bp.delete_customer_action', customer_id=customer.id) }}" method="post" style="display:inline;">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

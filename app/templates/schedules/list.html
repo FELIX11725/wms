@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Waste Collection Schedules</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Waste Collection Schedules</h1>
+    <p>
+        <a href="{{ url_for('staff_html_bp.list_staff_members') }}">Manage Staff</a> |
+        <a href="{{ url_for('vehicles_html_bp.list_vehicles') }}">Manage Vehicles</a> |
+        <a href="{{ url_for('customers_html_bp.list_customers') }}">Manage Customers</a> |
+        <a href="{{ url_for('waste_types_html_bp.list_waste_types') }}">Manage Waste Types</a>
+    </p>
+    <a href="{{ url_for('schedules_html_bp.add_schedule_form') }}">Add New Schedule</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Customer</th>
+                <th>Waste Type</th>
+                <th>Scheduled Date</th>
+                <th>Frequency</th>
+                <th>Vehicle</th>
+                <th>Staff</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for schedule in schedules %}
+            <tr>
+                <td>{{ schedule.id }}</td>
+                <td>{{ schedule.customer.name if schedule.customer else 'N/A' }}</td>
+                <td>{{ schedule.waste_type.name if schedule.waste_type else 'N/A' }}</td>
+                <td>{{ schedule.scheduled_date.strftime('%Y-%m-%d') if schedule.scheduled_date else 'N/A' }}</td>
+                <td>{{ schedule.frequency }}</td>
+                <td>{{ schedule.vehicle.registration_number if schedule.vehicle else 'N/A' }}</td>
+                <td>{{ schedule.staff_member.name if schedule.staff_member else 'N/A' }}</td>
+                <td>{{ schedule.status }}</td>
+                <td>
+                    <a href="{{ url_for('schedules_html_bp.edit_schedule_form', schedule_id=schedule.id) }}">Edit</a>
+                    <form action="{{ url_for('schedules_html_bp.delete_schedule_action', schedule_id=schedule.id) }}" method="post" style="display:inline;">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

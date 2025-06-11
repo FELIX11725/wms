@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ 'Edit' if member else 'Add' }} Staff Member</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>{{ 'Edit' if member else 'Add' }} Staff Member</h1>
+    <form method="post">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="{{ member.name if member else '' }}" required>
+        </div>
+        <div>
+            <label for="role">Role (e.g., Driver, Collector):</label>
+            <input type="text" id="role" name="role" value="{{ member.role if member else '' }}" required>
+        </div>
+        <div>
+            <label for="contact_email">Email:</label>
+            <input type="email" id="contact_email" name="contact_email" value="{{ member.contact_email if member else '' }}">
+        </div>
+        <div>
+            <label for="contact_phone">Phone:</label>
+            <input type="tel" id="contact_phone" name="contact_phone" value="{{ member.contact_phone if member else '' }}">
+        </div>
+        <button type="submit">Save</button>
+    </form>
+    <a href="{{ url_for('staff_html_bp.list_staff_members') }}">Back to List</a>
+</body>
+</html>
