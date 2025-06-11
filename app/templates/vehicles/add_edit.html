@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ 'Edit' if vehicle else 'Add' }} Vehicle</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>{{ 'Edit' if vehicle else 'Add' }} Vehicle</h1>
+    <form method="post">
+        <div>
+            <label for="registration_number">Registration Number:</label>
+            <input type="text" id="registration_number" name="registration_number" value="{{ vehicle.registration_number if vehicle else '' }}" required>
+        </div>
+        <div>
+            <label for="type">Type (e.g., Truck, Van):</label>
+            <input type="text" id="type" name="type" value="{{ vehicle.type if vehicle else '' }}">
+        </div>
+        <div>
+            <label for="capacity">Capacity (e.g., kg or m³):</label>
+            <input type="number" step="any" id="capacity" name="capacity" value="{{ vehicle.capacity if vehicle else '' }}">
+        </div>
+        <div>
+            <label for="status">Status:</label>
+            <select id="status" name="status">
+                <option value="available" {{ 'selected' if vehicle and vehicle.status == 'available' }}>Available</option>
+                <option value="in_service" {{ 'selected' if vehicle and vehicle.status == 'in_service' }}>In Service</option>
+                <option value="maintenance" {{ 'selected' if vehicle and vehicle.status == 'maintenance' }}>Maintenance</option>
+            </select>
+        </div>
+        <button type="submit">Save</button>
+    </form>
+    <a href="{{ url_for('vehicles_html_bp.list_vehicles') }}">Back to List</a>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vehicles</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Vehicle Management</h1>
+    <p>
+        <a href="{{ url_for('customers_html_bp.list_customers') }}">Manage Customers</a> |
+        <a href="{{ url_for('waste_types_html_bp.list_waste_types') }}">Manage Waste Types</a>
+    </p>
+    <a href="{{ url_for('vehicles_html_bp.add_vehicle_form') }}">Add New Vehicle</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Registration #</th>
+                <th>Type</th>
+                <th>Capacity</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vehicle in vehicles %}
+            <tr>
+                <td>{{ vehicle.id }}</td>
+                <td>{{ vehicle.registration_number }}</td>
+                <td>{{ vehicle.type }}</td>
+                <td>{{ vehicle.capacity }}</td>
+                <td>{{ vehicle.status }}</td>
+                <td>
+                    <a href="{{ url_for('vehicles_html_bp.edit_vehicle_form', vehicle_id=vehicle.id) }}">Edit</a>
+                    <form action="{{ url_for('vehicles_html_bp.delete_vehicle_action', vehicle_id=vehicle.id) }}" method="post" style="display:inline;">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
